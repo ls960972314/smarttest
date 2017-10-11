@@ -7,9 +7,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import smarttest.json.ReadJson;
 import smarttest.model.mock.request.MockRequest;
 import smarttest.service.Send2Server;
+import smarttest.utils.ReadJson;
 
 /**
  * 执行自动测试任务

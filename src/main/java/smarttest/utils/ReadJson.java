@@ -1,4 +1,4 @@
-package smarttest.json;
+package smarttest.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
