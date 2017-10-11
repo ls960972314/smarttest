@@ -7,7 +7,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import smarttest.mockServer.MockServer;
 import smarttest.model.mock.request.MockRequest;
+import smarttest.model.real.request.RealRequest;
+import smarttest.resultValid.ResultValid;
 import smarttest.service.Send2Server;
 import smarttest.utils.ReadJson;
 
@@ -43,10 +46,10 @@ public class TestRun {
 			System.out.println("用例" + (i+1) + "---------------------");
 			System.out.println("请求参数：" + testcases.get(i));
 			String mockReturnCode = MockServer.handleRequest(JSON.parseObject(testcases.get(i), MockRequest.class));
-			String realReturnCode = Send2Server.handleRequest(JSON.parseObject(testcases.get(i), MockRequest.class));
+			String realReturnCode = Send2Server.handleRequest(JSON.parseObject(testcases.get(i), RealRequest.class));
 			System.out.println("MOCK请求结果" + mockReturnCode);
 			System.out.println("REAL请求结果" + realReturnCode);
-			if (ValidResultUtil.validReturnCode(mockReturnCode, realReturnCode)) {
+			if (ResultValid.validReturnCode(mockReturnCode, realReturnCode)) {
 				System.out.println("该请求结果与预期不符合");
 				errorTestCases.add(testcases.get(i));
 			}

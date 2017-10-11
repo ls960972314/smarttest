@@ -1,4 +1,4 @@
-package smarttest.main;
+package smarttest.mockServer;
 
 import org.apache.commons.lang3.StringUtils;
 
