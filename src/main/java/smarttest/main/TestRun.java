@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import smarttest.json.ReadJson;
 import smarttest.model.mock.request.MockRequest;
 import smarttest.service.Send2Server;
 
@@ -26,22 +27,8 @@ public class TestRun {
 	
 	public static void main(String[] args) {
 		
-		
-		/**
-		 * 交易类型
-		 * 交易状态
-		 * 清分状态
-		 * 
-		 */
-		String dsptReqJson = "{\"drcTn\":\"epcc.303.001.01\","
-				+             "\"msgTp\":\"20\","
-				+             "\"data\":{"
-				+                            "\"oriTrxId\":\",20171010123456010010\","
-				+                            "\"oriTrxCtgy\":\"0110\","
-				+                            "\"srcInstgId\":\"C123456,C6542321\","
-				+                            "\"sinkInstgId\":\"C123456,C6542321\""
-				+                      "}"
-				+              "}";
+		String dsptReqJson = ReadJson.readJson("mockReqJson");
+		System.out.println(dsptReqJson);
 		
 		
 		String templeJson = dealReq(JSON.parseObject(dsptReqJson), new AtomicInteger(0));

@@ -1,0 +1,10 @@
+{
+"drcTn":"epcc.303.001.01",
+"msgTp":"20",
+"data":{
+		"oriTrxId":"20171010123456010010",
+		"oriTrxCtgy":"0110",
+		"srcInstgId":"C123456,C6542321",
+		"sinkInstgId":"C123456,C6542321"
+		}
+}
