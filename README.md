@@ -16,7 +16,7 @@ smarttest.utils.ReadJson.java                   读取文件工具类
 </pre>
 
 # 使用说明
-## 配置json请求对象
+## 第一步:配置json请求对象
 > {
 "drcTn":"epcc.303.001.01",
 "msgTp":"20",
@@ -50,7 +50,22 @@ sinkInstgId的值为C123456,C6542321
 - 用例7{"data":{"oriTrxCtgy":"0110","oriTrxId":"20171010123456010010","sinkInstgId":"C123456","srcInstgId":"C6542321"},"drcTn":"epcc.303.001.01","msgTp":"20"}
 - 用例8{"data":{"oriTrxCtgy":"0110","oriTrxId":"20171010123456010010","sinkInstgId":"C6542321","srcInstgId":"C6542321"},"drcTn":"epcc.303.001.01","msgTp":"20"}
 
-## 配置模拟服务接口
+如果想剔除oriTrxCtgy=0110和oriTrxId为空的数据,可以在limitJson文件中加入如下的JSON串,若有多个限制,在数组中依次加入即可
+
+```
+{
+	"limitList":
+	[
+		{
+		"oriTrxId":"",
+		"oriTrxCtgy":"0110"
+		}
+	]
+}
+```
+
+
+## 第二步:配置模拟服务接口
 
 参考smarttest.mockServer.MockServer.java,填写自己的规则,输出对应的返回码
 ```
@@ -74,7 +89,7 @@ public static String handleRequest (MockRequest req) {
 	}
 ```
 
-## 测试结果判断
+## 第三步:测试结果判断
 参考smarttest.resultValid.ResultValid.java,实现自己的结果判断,根据真实返回值和模拟返回值,校验这个测试用例是否达标
 
 ```

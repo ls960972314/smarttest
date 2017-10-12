@@ -13,6 +13,7 @@ import smarttest.model.real.request.RealRequest;
 import smarttest.resultValid.ResultValid;
 import smarttest.service.Send2Server;
 import smarttest.utils.ReadJson;
+import smarttest.utils.RemoveLimitCasesUtil;
 
 /**
  * 执行自动测试任务
@@ -29,10 +30,13 @@ public class TestRun {
 	private static List<String> errorTestCases = new ArrayList<>();
 	
 	public static void main(String[] args) {
-		
-		String dsptReqJson = ReadJson.readJson("mockReqJson");
-		System.out.println(dsptReqJson);
-		
+		// 测试
+		run("reqJson", "limitJson");
+	}
+
+
+	public static void run(String reqJsonPath, String limitJsonPath) {
+		String dsptReqJson = ReadJson.readJson(reqJsonPath);
 		
 		String templeJson = dealReq(JSON.parseObject(dsptReqJson), new AtomicInteger(0));
 		
@@ -41,6 +45,15 @@ public class TestRun {
 		
 		String[] result = new String[arr.length];
 		generateTestCases(arr, 0, result, templeJson);
+		
+		System.out.println("过滤前的用例集合为:");
+		printAllTestCases();
+		
+		// 按照规则去掉无意义的测试案例
+		RemoveLimitCasesUtil.removeLimitCases(testcases, limitJsonPath);
+		
+		System.out.println("过滤后的用例集合为:");
+		printAllTestCases();
 		
 		for (int i=0; i<testcases.size(); i++) {
 			System.out.println("用例" + (i+1) + "---------------------");
@@ -59,7 +72,21 @@ public class TestRun {
 	}
 
 
+	/**
+	 * 输出所有的测试类
+	 */
+	private static void printAllTestCases() {
+		System.out.println("-----------------");
+		for (int i=0; i<testcases.size(); i++) {
+			System.out.println("用例" + (i+1) + testcases.get(i));
+		}
+		System.out.println("-----------------");
+	}
 
+
+	/**
+	 * 输出不符合预期的案例
+	 */
 	private static void printErrorCases() {
 		System.out.println("------------------------");
 		System.out.println("请求结果与预期不符合的用例如下");
